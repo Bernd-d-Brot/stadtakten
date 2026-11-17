@@ -124,7 +124,7 @@ const IMP=[
 {t:"Politikwechsel und Sonderinstrumente",w:"Entwicklungsgesellschaft mit Planungshoheit, Sonderzonen, Steuervorteile",bsp:"LDDC 1981, Unternehmenszone 1982",i:["foerd","apl"]},
 {t:"Verkehrsinfrastruktur",w:"macht Flächen erreichbar und erhöht ihren Wert",bsp:"DLR 1987, Jubilee Line 1999, Elizabeth Line 2022",i:["preis","apl"]},
 {t:"Großprojekt (Leuchtturm)",w:"ein Investor oder Projekt zieht weitere nach",bsp:"Canary Wharf ab 1988",i:["buero","preis","foerd"]},
-{t:"Großereignis mit festem Termin",w:"ein fester Termin bündelt Geld, Planungsrechte und Infrastruktur auf wenigen Flächen; danach zählt die Nachnutzung",bsp:"z. B. Olympische Spiele, Weltausstellung, Gartenschau",i:["flaeche","preis","wform","foerd"]},
+{t:"Großereignis mit festem Termin",w:"ein fester Termin bündelt Geld, Planungsrechte und Infrastruktur auf wenigen Flächen; danach zählt die Nachnutzung",bsp:"bewusst ohne Beispiel – erkenne das Muster an seinen Merkmalen",i:["flaeche","preis","wform","foerd"]},
 {t:"Schock oder Krise",w:"verschiebt Nachfrage plötzlich",bsp:"Homeoffice nach der Pandemie, Brexit",i:["buero","sektor"]},
 {t:"Förderprogramm",w:"stellt Geld für Umbau und Aufwertung bereit",bsp:"Stadtumbau Ost, heute „Wachstum und nachhaltige Erneuerung“",i:["leer","einw"]}
 ];
@@ -557,6 +557,289 @@ AKTEN.forEach(a=>{const x=ADD[a.id];if(x){a.N=a.N.concat(x.N);a.E=a.E.concat(x.E
 const RUN=7,MIXRUN=10;
 const MIX={id:"mix",nr:"★",t:"Mixtraining",bez:"alle freigeschalteten Akten",intro:"10 zufällige Aufgaben aus allen Akten, die schon offen sind – zum Wiederholen, zum Beispiel vor der Klausur.",merk:"Gleiche Fallen, andere Städte: Prüfe immer Zählgrundlage, Gebiet, Zeitraum – und für wen gemessen wird."};
 
+/* ---------- Prozesse (Ausbau 17.11.2026) ---------- */
+const PFAM=[["bev","Bevölkerung"],["wir","Wirtschaft"],["fla","Fläche"],["woh","Wohnen"],["soz","Soziale Unterschiede"],["bew","Stadtpolitik"]];
+const PROC=[
+{id:"suburb",f:"bev",t:"Suburbanisierung",al:["Suburbanisierung"],
+ def:"Bevölkerung, später auch Handel, Gewerbe und Arbeitsplätze verlagern sich aus der Kernstadt ins Umland. Die Stadtregion wächst, die Kernstadt verliert – relativ oder absolut.",
+ mod:"Phasenmodell der Stadtentwicklung (van den Berg u. a. 1982): Suburbanisierung ist die zweite von vier Phasen.",
+ ausl:["steigende Einkommen und Motorisierung","günstiges Bauland, Wunsch nach Eigenheim mit Garten","hohe Preise und Wohnungsknappheit in der Kernstadt","Familiengründung (Lebensphase)","heute auch Homeoffice"],
+ mech:"Familien ziehen ins Umland, pendeln aber weiter in die Stadt. Der Verkehr wächst, Straßen und Bahnen werden ausgebaut – das Umland wird noch besser erreichbar und zieht weitere Haushalte an. Handel und Gewerbe folgen der Kaufkraft auf die „grüne Wiese“.",
+ g:{n:["Einkommen und|Motorisierung","Wegzug von|Familien ins Umland","Pendlerverkehr","Ausbau von|Straßen und Bahnen","Erreichbarkeit|des Umlands"],e:[[0,1,"+"],[1,2,"+"],[2,3,"+"],[3,4,"+"],[4,1,"+"]],loop:"Verstärkender Kreislauf: Wegzug → Pendlerverkehr → Ausbau → bessere Erreichbarkeit → mehr Wegzug."},
+ phasen:"phasenmodell",
+ akt:"Haushalte (vor allem Familien), Umlandgemeinden mit Baugebieten, Bauträger, Handel, Verkehrsplanung",
+ raum:"Wachstum am Stadtrand und entlang der Verkehrsachsen („Speckgürtel“), Zersiedelung, Einkaufszentren an Autobahnen",
+ bild:[["Einwohner im Umland","↑","einw"],["Einwohner der Kernstadt im Vergleich zum Umland","↓","einw"],["Binnenwanderungssaldo der Kernstadt bei Familien","↓","wand"],["Einpendler in die Kernstadt","↑","apl"],["Siedlungs- und Verkehrsfläche im Umland","↑","flaeche"]],
+ gegen:[["schrumpf","Bei der Suburbanisierung wächst die Stadtregion insgesamt. Bei der Schrumpfung verliert die Stadt dauerhaft, oft auch die Region. Suburbanisierung kann eine Ursache sein."],["reurb","Bei der Reurbanisierung wächst die Kernstadt schneller als das Umland."],["digi","Digitalisierung ist ein Impuls, der Suburbanisierung verstärken kann. Typisch für die Digitalisierung: Pendeltage und Bürobedarf sinken – bei der klassischen Suburbanisierung steigt der Pendlerverkehr."]],
+ steu:"Innen- vor Außenentwicklung, Ziel der Bundesregierung: unter 30 Hektar neue Siedlungs- und Verkehrsfläche pro Tag bis 2030; Wohnungsbau an Bahnachsen; regionale Planung",
+ falle:"Ein negativer Binnenwanderungssaldo der Großstadt ist nicht automatisch Suburbanisierung – die Menschen können auch in eine ganz andere Region ziehen. Prüfe, wohin und wer.",
+ bsp:"Deutschland: Großstädte verlieren seit 2014 bei der Binnenwanderung, dünn besiedelte Kreise gewinnen seit 2017. Laut BBSR wirkt das Homeoffice heute ähnlich wie früher die Motorisierung.",
+ pf:"Wohin ziehen die Menschen – und wer zieht (Alter, Haushaltstyp)?"},
+{id:"reurb",f:"bev",t:"Reurbanisierung",al:["Reurbanisierung"],
+ def:"Die Kernstadt gewinnt nach einer Phase der Verluste wieder Einwohner – absolut oder im Verhältnis zum Umland. Getragen wird das oft von jungen Erwachsenen, kleinen Haushalten und Zuwanderung aus dem Ausland.",
+ mod:"Vierte Phase im Phasenmodell der Stadtentwicklung. Neuere Forschung (BBSR) beschreibt wiederkehrende Zyklen, die nach Alter und Herkunft verschieden verlaufen.",
+ ausl:["Ausbildungs- und Bildungswanderung","Wissensökonomie in den Zentren","mehr Single- und Doppelverdienerhaushalte","aufgewertete Innenstädte","Zuwanderung aus dem Ausland"],
+ mech:"Arbeitsplätze der Wissensökonomie ziehen junge, gut ausgebildete Menschen an – und diese ziehen weitere Unternehmen an. Die Nachfrage nach Wohnungen steigt, die Preise auch. Steigende Preise bremsen das Wachstum: Familien weichen ins Umland aus.",
+ g:{n:["Arbeitsplätze der|Wissensökonomie","Zuzug junger|Erwachsener","Nachfrage nach|Wohnungen","Mieten und|Preise","Wegzug von|Familien ins Umland"],e:[[0,1,"+"],[1,0,"+"],[1,2,"+"],[2,3,"+"],[3,4,"+"],[4,2,"−"]],loop:"Verstärkend: Arbeitsplätze ↔ Zuzug. Abschwächend: Nachfrage → Preise → Wegzug von Familien → weniger Nachfrage."},
+ phasen:"phasenmodell",
+ akt:"junge Erwachsene, Studierende, Zugewanderte, Unternehmen der Wissensökonomie, Wohnungswirtschaft, Stadtplanung",
+ raum:"Innenstadt und innenstadtnahe Viertel, Nachverdichtung, Umnutzung alter Kasernen-, Bahn- und Industrieflächen",
+ bild:[["Wanderungssaldo der Kernstadt","↑","wand"],["Anteil junger Erwachsener","↑","alt"],["Durchschnittliche Haushaltsgröße","↓","haush"],["Wohnungsleerstand","↓","leer"],["Einwohner der Kernstadt","↑","einw"]],
+ gegen:[["gent","Reurbanisierung zählt die Einwohner der ganzen Kernstadt (sie steigen). Gentrifizierung betrifft ein Viertel, dessen Bewohner ausgetauscht werden – die Einwohnerzahl bleibt dort oft gleich."],["suburb","Bei der Suburbanisierung wächst das Umland schneller als die Kernstadt."]],
+ steu:"Wohnungsneubau und Nachverdichtung, Umnutzung von Brachen, soziale Wohnraumförderung, Infrastruktur für mehr Einwohner (Schulen, Nahverkehr)",
+ falle:"Wachstum ist nicht gleich Reurbanisierung durch Binnenzuzug: Münchens Wanderungsgewinn 2025 kam nur von Nichtdeutschen (+9 591); bei den Deutschen zogen mehr fort als zu (−4 766; Melderegister).",
+ bsp:"München und Potsdam: Wachstum hält an, aber abgeschwächt; Großstädte gewinnen bei den 25- bis 29-Jährigen kaum noch (BBSR 2026).",
+ pf:"Wächst die Kernstadt auch durch Binnenwanderung – oder nur durch Zuzug aus dem Ausland?"},
+{id:"schrumpf",f:"bev",t:"Schrumpfung",al:["Schrumpfung","Alterung"],
+ def:"Die Einwohnerzahl einer Stadt geht dauerhaft zurück, meist verbunden mit wirtschaftlichem Niedergang, Alterung und Leerstand.",
+ mod:"Schrumpfungsmodell (Haase u. a. 2014): Ursachen → Folgen → Antworten, mit Rückkopplungen. Es ordnet, erklärt aber nicht allein.",
+ ausl:["politischer Umbruch (Wende 1989/90)","Deindustrialisierung","Suburbanisierung","Sterbeüberschuss als Spätfolge früherer Abwanderung"],
+ mech:"Fallen Arbeitsplätze weg, wandern vor allem junge Erwachsene ab. Es fehlen Eltern, die Geburten sinken, die Bevölkerung altert. Leerstand und sinkende Einnahmen schwächen Angebote und Infrastruktur – die Stadt wird weniger attraktiv, die Abwanderung nimmt zu (Schrumpfungsspirale).",
+ g:{n:["Arbeitsplätze","Abwanderung junger|Erwachsener","Geburten","Leerstand","Einnahmen|der Stadt","Angebote und|Infrastruktur"],e:[[0,1,"−"],[1,0,"−"],[1,2,"−"],[1,3,"+"],[1,4,"−"],[4,5,"+"],[5,1,"−"]],loop:"Verstärkende Kreisläufe (Schrumpfungsspirale): Abwanderung → weniger Einnahmen → weniger Angebote → mehr Abwanderung. Und: Abwanderung → weniger Kaufkraft und Arbeitsplätze → mehr Abwanderung."},
+ phasen:"Typischer Verlauf in Ostdeutschland: nach 1990 Schrumpfung vor allem durch Abwanderung, später vor allem durch den Sterbeüberschuss – selbst wenn wieder mehr Menschen zu- als fortziehen.",
+ akt:"Stadtverwaltung, Wohnungsunternehmen und Genossenschaften, verbleibende Bewohner (oft älter), Land und Bund (Förderprogramme)",
+ raum:"Lückenhafter Leerstand: Leere Wohnungen und Brachen verteilen sich über die Stadt – besonders in Großsiedlungen am Rand und in unsanierten Altbauvierteln.",
+ bild:[["Einwohnerzahl der Stadt","↓","einw"],["Einwohner der Stadtregion mit Umland","↓","einw"],["natürlicher Saldo","↓","nat"],["Anteil 65 Jahre und älter","↑","alt"],["Wohnungsleerstand","↑","leer"]],
+ gegen:[["suburb","Bei der Suburbanisierung verliert nur die Kernstadt, die Region wächst."],["reurb","Bei Reurbanisierung steigen Einwohnerzahl und Wanderungssaldo der Kernstadt, der Leerstand sinkt."]],
+ steu:"Wie eine schrumpfende Stadt reagieren kann, erarbeitest du in Stunde 3.",
+ falle:"Schrumpfen heißt nicht automatisch Abwanderung – prüfe beide Komponenten der Bevölkerungsbilanz.",
+ bsp:"Ein Beispiel aus der Reihe folgt mit der Lernzeit zu Wittenberge.",
+ upd:[["2026-11-20",{falle:"Schrumpfen heißt nicht automatisch Abwanderung: Wittenberge schrumpft heute trotz Wanderungsgewinnen – durch den Sterbeüberschuss.",bsp:"Wittenberge: 28 378 Einwohner (1990) → 16 928 (2025), rund −40 % (Zählgrundlage 2011 und 2022 gewechselt)."}],["2026-11-23",{steu:"Stadtumbau: Rückbau leer stehender Wohnungen, Aufwertung der Innenstadt, Zuzugsförderung; Förderprogramm „Wachstum und nachhaltige Erneuerung“ (seit 2020, früher Stadtumbau Ost und West)."}]],
+ pf:"Welche Komponente gibt den Ausschlag – und ist sie eine Spätfolge früherer Abwanderung?"},
+{id:"deind",f:"wir",t:"Deindustrialisierung",al:["Deindustrialisierung","Strukturwandel"],
+ def:"Industriearbeitsplätze gehen in einer Stadt dauerhaft zurück, Betriebe schließen oder wandern ab, Flächen fallen brach. Bei Häfen verlagert der technische Wandel den Umschlag an neue Standorte (Hafenstrukturwandel).",
+ mod:"Modell der Hafen-Stadt-Beziehung (Hoyle 1988): Hafen in der Stadt → Ausdehnung → moderner Industriehafen → Rückzug vom Ufer → Umnutzung des Ufers.",
+ ausl:["technischer Wandel (Container, Automatisierung)","globale Konkurrenz, Verlagerung in andere Länder","politischer Umbruch"],
+ mech:"Neue Technik braucht weniger Arbeitskräfte je Tonne und andere Standorte (tiefes Wasser, große Flächen). Die Funktion wandert ab, am alten Standort verschwinden die Arbeitsplätze. Arbeitslosigkeit und sinkende Kaufkraft treffen die Viertel, in denen die Beschäftigten wohnten.",
+ g:{n:["Container und|Automatisierung","Arbeitskräfte|je Tonne","Hafenarbeitsplätze|am alten Standort","Arbeitslosigkeit|im Viertel","Kaufkraft|im Viertel","Brachflächen"],e:[[0,1,"−"],[1,2,"+"],[0,5,"+"],[2,5,"−"],[2,3,"−"],[3,4,"−"]],loop:"Wirkungskette ohne Kreislauf: Der Impuls kommt von außen."},
+ phasen:"Hoyle-Modell, Phase 4 (vorbereitet in Phase 3): Der moderne Hafen zieht vom Stadtzentrum weg, das alte Ufer fällt brach.",
+ akt:"Hafen- und Industrieunternehmen, Beschäftigte, Gewerkschaften, Staat",
+ raum:"innenstadtnahe Häfen und Industriegebiete; die Funktion wandert an neue Standorte (flussabwärts, an den Stadtrand)",
+ bild:[["Industrie- und Hafenarbeitsplätze am alten Standort","↓","sektor"],["Güterumschlag am alten Standort","↓","gut"],["Arbeitslosenquote","↑","alq"],["Brachflächen","↑","flaeche"]],
+ gegen:[["tert","Tertiärisierung läuft oft gleichzeitig – aber die neuen Dienstleistungsjobs gehen meist an andere Menschen."],["schrumpf","Deindustrialisierung kann Schrumpfung auslösen, muss aber nicht: In einer wachsenden Stadt wird die Brache schnell neu genutzt."]],
+ steu:"Umschulung, Ansiedlungspolitik, Umnutzung der Brachen (Revitalisierung)",
+ falle:"Der Güterumschlag eines Hafens kann steigen, während die Arbeitsplätze sinken (Rationalisierung).",
+ bsp:"Ein Beispiel aus der Reihe folgt nach Stunde 2.",
+ upd:[["2026-11-21",{bsp:"London Docklands: Hafenarbeitsplätze in fünf Bezirken 1967–1980 um rund 86 % gesunken; Containerhafen in Tilbury, rund 40 km flussabwärts."}]],
+ pf:"Welcher Impuls hat den Standort entwertet – und wohin ist die Funktion gewandert?"},
+{id:"tert",f:"wir",t:"Tertiärisierung und Global City",al:["Tertiärisierung","Global City"],
+ def:"Der Dienstleistungssektor gewinnt an Bedeutung. In wenigen Weltstädten bündeln sich Steuerungsfunktionen der Weltwirtschaft – Finanzen, Recht, Beratung (Global City nach Sassen 1991).",
+ mod:"Drei-Sektoren-Hypothese (Fourastié 1949): Primär → sekundär → tertiär; Wissens- und Informationsdienste werden oft als quartärer Sektor abgegrenzt.",
+ ausl:["Globalisierung","Deregulierung der Finanzmärkte (London: „Big Bang“ 1986)","Digitalisierung","Bedarf an großen, modernen Büroflächen"],
+ mech:"Hochbezahlte Finanz- und Beratungsjobs erhöhen die Nachfrage nach Büros und Wohnungen; neue Bürotürme ziehen weitere Unternehmen an. Zugleich wächst der Bedarf an gering bezahlten Diensten (Reinigung, Gastronomie, Sicherheit). Die Einkommen driften auseinander.",
+ g:{n:["Finanz- und|Beratungsjobs","Nachfrage nach|Büros, Wohnungen","Bürobau","Boden- und|Mietpreise","Gering bezahlte|Dienste","Soziale|Polarisierung"],e:[[0,1,"+"],[1,2,"+"],[2,0,"+"],[1,3,"+"],[0,4,"+"],[4,5,"+"],[3,5,"+"]],loop:"Verstärkend: Jobs → Nachfrage → Bürobau → weitere Ansiedlungen."},
+ phasen:"",
+ akt:"Banken und Konzerne, Projektentwickler, Staat (Deregulierung, Verkehr), Pendler, Beschäftigte in Niedriglohndiensten",
+ raum:"Bürocluster in der City und neue Zentren am Rand der City; Hochhausgruppen; Einzugsgebiet der Pendler reicht weit ins Umland",
+ bild:[["Anteil der Dienstleistungen an allen Beschäftigten der Stadt","↑","sektor"],["Anteil der Industriebeschäftigten der ganzen Stadt","↓","sektor"],["Lohn am Arbeitsort im Vergleich zum Wohnort","↑","apl"],["Boden- und Mietpreise","↑","preis"]],
+ gegen:[["revit","Revitalisierung beschreibt den Umbau einer Fläche; Tertiärisierung den Wandel der Wirtschaft."],["gent","Gentrifizierung betrifft Wohnviertel und ihre Bewohner, nicht Bürostandorte."]],
+ steu:"Lokale Beschäftigungs- und Ausbildungsprogramme, Abgaben auf Planungsgewinne für Sozialwohnungen, Nahverkehr",
+ falle:"Ein steigender Anteil kann auch heißen, dass andere Branchen schrumpfen. Und: Der Lohn am Arbeitsort sagt nichts über die Bewohner.",
+ bsp:"Ein Beispiel aus der Reihe folgt nach Stunde 2.",
+ upd:[["2026-11-21",{bsp:"Canary Wharf; Tower Hamlets 2023: mittlerer Wochenlohn am Arbeitsort 1 054 £, am Wohnort 852 £."}]],
+ pf:"Wem gehören die neuen Arbeitsplätze – Bewohnern oder Pendlern?"},
+{id:"digi",f:"wir",t:"Digitalisierung und Homeoffice",al:["Digitalisierung"],
+ def:"Digitale Arbeit, Onlinehandel und Plattformen lösen Tätigkeiten vom festen Ort. Das verändert die Raumstrukturen: Büro-, Handels- und Wohnstandorte.",
+ mod:"Abiturvorgaben NRW: „Veränderung von Raumstrukturen im Kontext von Digitalisierung“. BBSR 2026: Homeoffice wirkt auf die Wohnstandortwahl ähnlich wie früher die Motorisierung.",
+ ausl:["Pandemie 2020 als Schock","schnelles Internet","Plattformen und Onlinehandel"],
+ mech:"Wer öfter zu Hause arbeitet, pendelt seltener. Unternehmen brauchen weniger Bürofläche je Beschäftigtem; Leerstand und Umbau nehmen zu. Längere Wege werden erträglich – Umland und Kleinstädte werden als Wohnort attraktiver. Der Onlinehandel leert Läden in den Innenstädten und braucht Logistikflächen am Stadtrand.",
+ g:{n:["Homeoffice und|digitale Arbeit","Pendeltage|pro Woche","Bürobedarf|in den Zentren","Zuzug ins Umland|und in Kleinstädte","Onlinehandel","Leerstand im|Innenstadthandel"],e:[[0,1,"−"],[1,2,"+"],[1,3,"−"],[4,5,"+"]],loop:"Wirkungsketten ohne Kreislauf: Digitalisierung wirkt als Impuls auf mehrere Prozesse."},
+ phasen:"",
+ akt:"Beschäftigte, Unternehmen, Büroeigentümer, Handel, Logistik, Kommunen",
+ raum:"Zentren (Büro- und Ladenleerstand, Umbau), Umland und Kleinstädte (Zuzug), Stadtrand (Logistik)",
+ bild:[["Büroleerstand im Zentrum","↑","buero"],["Pendeltage pro Woche","↓","apl"],["Wanderungssaldo von Kleinstädten und Umland","↑","wand"],["Logistikflächen am Stadtrand","↑","flaeche"]],
+ gegen:[["suburb","Klassische Suburbanisierung erhöht den Pendlerverkehr; digital getriebene Verlagerung senkt die Pendeltage."],["deind","Leerstand im Zentrum betrifft hier Büros und Läden, keine Industrie; der Impuls ist keine Produktionsverlagerung."]],
+ steu:"Büros zu Wohnungen umbauen, Coworking-Räume, Innenstadtprogramme, Breitbandausbau auf dem Land",
+ falle:"Ein einzelner Leerstandswert ist kein Trend, und verschiedene Anbieter messen verschieden.",
+ bsp:"Ein Beispiel aus der Reihe folgt nach Stunde 2.",
+ upd:[["2026-11-21",{bsp:"Canary Wharf: Büroleerstand 18,6 % (CoStar 2025) gegenüber 8,0 % (Knight Frank 2026) – andere Gebiete, andere Methoden."}]],
+ pf:"Was verlagert sich – Arbeit, Wohnen oder Handel – und ist der Effekt dauerhaft?"},
+{id:"revit",f:"fla",t:"Revitalisierung",al:["Revitalisierung"],
+ def:"Brachgefallene, meist innenstadtnahe Flächen (Hafen, Industrie, Bahn) werden mit neuen Nutzungen wiederbelebt – Büro, Wohnen, Freizeit, Kultur. Am Wasser spricht man von Waterfront Development.",
+ mod:"Hoyle-Modell, Phase 5: Umnutzung des Ufers. Typische Abfolge: Brache → Sondergesellschaft oder Masterplan → Erschließung → Leuchtturmprojekt → Nachverdichtung.",
+ ausl:["Brachen in zentraler Lage","Flächenknappheit","staatliche Steuerung (Entwicklungsgesellschaft, Förderung)","neue Verkehrsanbindung","Leuchtturmprojekte"],
+ mech:"Der Staat schafft Voraussetzungen: Planungsrecht, Erschließung, Bahnlinien. Private Investitionen folgen und verbessern das Image, das weitere Investoren anzieht. Bodenwerte steigen – auch in den Nachbarvierteln.",
+ g:{n:["Staat: Planung|und Bahnlinien","Erreichbarkeit","Private|Investitionen","Image des|Gebiets","Bodenwerte","Preisdruck in|Nachbarvierteln"],e:[[0,1,"+"],[1,2,"+"],[2,3,"+"],[3,2,"+"],[1,4,"+"],[2,4,"+"],[4,5,"+"]],loop:"Verstärkend: Investitionen ↔ Image."},
+ phasen:"",
+ akt:"Staat und Kommune, Entwicklungsgesellschaft, Investoren, Unternehmen, Alteingesessene, neue Bewohner",
+ raum:"Waterfronts, Bahn- und Industriebrachen nahe der Innenstadt; oft scharfe Grenze zum alten Bestand",
+ bild:[["Brachflächen","↓","flaeche"],["Beschäftigte im Gebiet","↑","apl"],["Boden- und Mietpreise","↑","preis"],["Büroflächen und Neubau","↑","buero"]],
+ gegen:[["gent","Revitalisierung betrifft Flächen, Gentrifizierung die Bewohner eines bestehenden Viertels. Gentrifizierung kann eine Folge sein."],["tert","Tertiärisierung ist der Wandel der Wirtschaft; Revitalisierung kann auch Wohnen, Freizeit oder Gewerbe bringen."]],
+ steu:"Quote für Sozialwohnungen, Beteiligung der Bewohner, Vereinbarungen über lokale Arbeitsplätze",
+ falle:"Gebiets- und Personenebene trennen: Eine Arbeitslosenquote kann durch Zuzug sinken, ohne dass Alteingesessene Arbeit finden.",
+ bsp:"Ein Beispiel aus der Reihe folgt nach Stunde 2.",
+ upd:[["2026-11-21",{bsp:"London Docklands: Entwicklungsgesellschaft LDDC 1981–1998, Unternehmenszone ab 1982, neue Bahnlinien."}],["2026-12-01",{steu:"Quote für Sozialwohnungen, Beteiligung der Bewohner, Vereinbarungen über lokale Arbeitsplätze, Kontrolle öffentlicher Mittel, Nachnutzungskonzept"}]],
+ pf:"Für wen ist die Revitalisierung ein Erfolg?"},
+{id:"gent",f:"woh",t:"Gentrifizierung",al:["Gentrifizierung"],
+ def:"Ein bestehendes, meist innenstadtnahes Wohnviertel wird aufgewertet; einkommensstärkere Gruppen ersetzen einkommensschwächere – baulich, sozial und im Image.",
+ mod:"Doppelter Invasions-Sukzessions-Zyklus (Dangschat 1988): Pioniere verdrängen Alteingesessene, Gentrifier verdrängen Pioniere. Erklärung über die Mietlücke („rent gap“, Smith 1979): Abstand zwischen tatsächlicher und möglicher Bodenrente.",
+ ausl:["Mietlücke im unsanierten Bestand","Image durch Pioniere","Reurbanisierung, neue Lebensstile","Verkehrsanbindung","Investoren"],
+ mech:"Pioniere machen das Viertel bekannt, Besserverdienende ziehen nach. Investoren modernisieren und wandeln in Eigentum um; Mieten und Preise steigen. Die Aussicht auf weitere Preissteigerungen lockt neues Kapital. Alteingesessene und später auch die Pioniere können sich das Viertel nicht mehr leisten.",
+ g:{n:["Mietlücke|(rent gap)","Pioniere|und Image","Zuzug Besser-|verdienender","Modernisierung,|Umwandlung","Mieten und|Preise","Verdrängung|Alteingesessener"],e:[[0,3,"+"],[1,2,"+"],[2,4,"+"],[3,4,"+"],[4,3,"+"],[4,5,"+"],[4,1,"−"],[4,0,"−"]],loop:"Verstärkend: Preise → Modernisierung → Preise. Abschwächend: Steigende Mieten schließen die Mietlücke – weitere Modernisierung lohnt sich kaum noch; steigende Preise vertreiben auch die Pioniere."},
+ phasen:"Pionierphase → Pionier-Gentrifier-Phase → Gentrifier-Phase → Endphase (Verdrängung auch der Pioniere); die „Aufwertungsfront“ wandert ins Nachbarviertel.",
+ akt:"Pioniere (Studierende, Kreative), Gentrifier, Investoren und Vermieter, Stadtpolitik, Alteingesessene",
+ raum:"innenstadtnahe Altbau- und Arbeiterviertel; die Aufwertungsfront wandert weiter",
+ bild:[["Mieten und Preise","↑","preis"],["Haushaltsgröße, Haushalte mit Kindern","↓","haush"],["Einkommen der Bewohner","↑","eink"],["Anteil der Sozialmieter","↓","wform"],["Einwohnerzahl","→","einw"]],
+ gegen:[["reurb","Reurbanisierung: Die Einwohner der ganzen Kernstadt nehmen zu. Gentrifizierung: Austausch der Bewohner, Einwohnerzahl im Viertel bleibt oft gleich."],["revit","Revitalisierung baut Brachflächen um; Gentrifizierung verändert ein bewohntes Viertel."],["newbuild","Neubaugentrifizierung entsteht durch Neubau auf leeren Flächen; die Verdrängung im Umfeld ist indirekt."]],
+ steu:"Milieuschutz (soziale Erhaltungssatzung, § 172 BauGB), Mietpreisbremse, sozialer Wohnungsbau, Begrenzung von Umwandlungen in Eigentum",
+ falle:"Gebietsmittelwerte zeigen nicht, wer weggezogen ist. Steigende Einkommen können auch sozialer Aufstieg derselben Menschen sein.",
+ bsp:"Shoreditch und Hoxton (London).",
+ upd:[["2026-11-20",{bsp:"Shoreditch und Hoxton (London); Spitalfields: mittleres Haushaltseinkommen +45 % (2012–2020)."}]],
+ pf:"Wer ist weggezogen – und wer ist gekommen?"},
+{id:"newbuild",f:"woh",t:"Neubaugentrifizierung",al:["Neubaugentrifizierung"],ab:"2026-12-01",
+ def:"Aufwertung durch hochpreisigen Neubau, meist auf Brachen. Auf der Fläche selbst wird oft niemand verdrängt – aber Preise, Angebote und Bevölkerung im Umfeld verändern sich (indirekte Verdrängung).",
+ mod:"„New-build gentrification“ (Davidson und Lees 2005, untersucht am Themseufer in London).",
+ ausl:["Revitalisierung von Brachen","Großprojekte","Investoren","Nachfrage Besserverdienender nach Neubau"],
+ mech:"Teurer Neubau bringt Haushalte mit hoher Kaufkraft. Geschäfte und Angebote im Umfeld passen sich an, Bodenwerte und Vergleichsmieten im Bestand nebenan steigen. Höhere Bodenwerte ziehen weiteren Neubau an.",
+ g:{n:["Teurer Neubau|auf Brachen","Zuzug mit|hoher Kaufkraft","Läden und Angebote|im Umfeld","Bodenwerte und|Mieten nebenan","Verdrängungsdruck|im Bestand"],e:[[0,1,"+"],[1,2,"+"],[2,3,"+"],[3,4,"+"],[3,0,"+"]],loop:"Verstärkend: Höhere Bodenwerte ziehen weiteren Neubau an."},
+ phasen:"Brache → Neubau → Umfeld wertet auf → Bestand gerät unter Druck",
+ akt:"Investoren, Projektentwickler, Kommune (Planungsrecht), neue Bewohner, Mieter im Bestand nebenan",
+ raum:"Waterfronts, Bahn- und Industriebrachen; Konfliktzone ist der Rand zum Bestandsviertel",
+ bild:[["Brachflächen","↓","flaeche"],["Eigentums- und Marktmietwohnungen im Gebiet","↑","wform"],["Einkommen im Gebiet","↑","eink"],["Mieten im Bestand nebenan","↑","preis"]],
+ gegen:[["gent","Klassische Gentrifizierung verändert den Bestand und verdrängt direkt."],["revit","Revitalisierung ist der Oberbegriff für den Umbau der Fläche. Genauer ist Neubaugentrifizierung: Die Mieten im Bestand nebenan steigen."]],
+ steu:"Quote für geförderte Wohnungen im Neubau, Vergabe von Grundstücken nach Konzept statt Höchstpreis, Milieuschutz im Bestand nebenan",
+ falle:"„Die Fläche war leer, also wurde niemand verdrängt“ greift zu kurz – prüfe Preise und Bewohner im Umfeld.",
+ bsp:"Docklands: Von den neuen Wohnungen bis 1997 waren nur 27 % Sozialwohnungen; der Eigentumsanteil stieg von 5 auf 43 %.",
+ pf:"Was passiert mit Preisen und Bewohnern in den Vierteln neben dem Neubau?"},
+{id:"segr",f:"soz",t:"Segregation",al:["Segregation"],
+ def:"Bevölkerungsgruppen verteilen sich ungleich über die Stadtteile – nach Einkommen, Herkunft oder Alter. Segregation ist ein Zustand und ein Prozess.",
+ mod:"Gemessen mit dem Segregationsindex (0 = gleichmäßig verteilt, 100 = völlig getrennt). Man unterscheidet freiwillige und erzwungene Segregation.",
+ ausl:["Wohnungsmarkt (Preise sortieren nach Einkommen)","Diskriminierung","Wunsch nach Nähe zur eigenen Gruppe","Lage von Sozialwohnungen"],
+ mech:"Preisunterschiede sortieren Haushalte nach Einkommen. Konzentriert sich Armut, verschlechtern sich Image und Schulen. Wer es sich leisten kann, zieht weg – die Konzentration nimmt weiter zu.",
+ g:{n:["Preisunterschiede|zwischen Vierteln","Sortierung nach|Einkommen","Konzentration|von Armut","Image und|Schulqualität","Wegzug mittlerer|Einkommen"],e:[[0,1,"+"],[1,2,"+"],[2,3,"−"],[3,4,"−"],[4,2,"+"]],loop:"Verstärkend: Konzentration → schlechteres Image → mehr Wegzug → mehr Konzentration. Zwei − in einem Kreislauf ergeben eine Verstärkung."},
+ phasen:"",
+ akt:"Haushalte, Vermieter und Wohnungsunternehmen, Stadt (Belegung von Sozialwohnungen), Schulen",
+ raum:"Mosaik von Vierteln; erst auf der Ebene kleiner Gebiete sichtbar, im Stadtdurchschnitt verdeckt",
+ bild:[["Segregationsindex","↑","index"],["Unterschiede beim Sammelindex zwischen den Vierteln","↑","index"],["Konzentration von Armut in einzelnen Vierteln","↑","armut"],["Sozialwohnungen räumlich gebündelt","↑","wform"]],
+ gegen:[["pol","Polarisierung: Die Unterschiede insgesamt wachsen. Segregation: Gruppen verteilen sich ungleich auf die Viertel. Fragmentierung: Wohlstandsinseln sind an die Weltwirtschaft angebunden und vom direkten Umfeld abgeschottet."]],
+ steu:"Soziale Mischung im Neubau, Belegungspolitik, Quartiersmanagement, mehr Geld für Schulen in benachteiligten Vierteln",
+ falle:"Auch Wohlhabende konzentrieren sich. Segregation ist nicht von sich aus schlecht – problematisch wird sie, wenn sie Chancen verschließt.",
+ bsp:"Ein Beispiel aus der Reihe folgt nach Stunde 2.",
+ upd:[["2026-11-21",{bsp:"Tower Hamlets: 73 von 169 kleinen Gebieten gehören zu den 20 % am stärksten benachteiligten Englands (London: 19 %)."}]],
+ pf:"Auf welcher Gebietsebene wird gemessen – und welche Gruppe ist konzentriert?"},
+{id:"pol",f:"soz",t:"Polarisierung und Fragmentierung",al:["Polarisierung","Fragmentierung"],
+ def:"Polarisierung: Die Unterschiede zwischen Arm und Reich wachsen. Fragmentierung: Wohlstandsinseln und benachteiligte Gebiete liegen kleinräumig nebeneinander und sind kaum verbunden.",
+ mod:"Theorie der fragmentierenden Entwicklung (Scholz 2002): Globalisierung verknüpft einzelne Orte mit der Weltwirtschaft und lässt das direkte Umfeld außen vor – auch innerhalb einer Stadt.",
+ ausl:["Global-City-Wirtschaft (hohe und niedrige Löhne)","Großprojekte","private Sicherheitsdienste und Räume","Rückzug öffentlicher Angebote"],
+ mech:"Hochbezahlte Jobs am Standort treiben die Preise im Umfeld. Die Ungleichheit wächst, Bürocluster und Wohnanlagen schotten sich ab. Mit weniger Kontakt zwischen den Gruppen verfestigen sich die Unterschiede.",
+ g:{n:["Hochlohnjobs|am Standort","Preise|im Umfeld","Ungleichheit","Abschottung|(Zugangskontrollen)","Kontakte zwischen|den Gruppen","Jobs für Bewohner|des Viertels"],e:[[0,1,"+"],[1,2,"+"],[2,3,"+"],[3,4,"−"],[4,2,"−"],[5,2,"−"]],loop:"Verstärkend: Ungleichheit → Abschottung → weniger Kontakt → mehr Ungleichheit."},
+ phasen:"Die Gegensätze zeigen sich oft erst auf der kleinsten Ebene (Stadt → Bezirk → Nachbarschaft).",
+ akt:"Konzerne und Investoren, Sicherheitsdienste, Bewohner beider Seiten, Stadt",
+ raum:"Inseln: Bürocluster und abgeschottete Wohnanlagen neben Sozialwohnungsquartieren; Grenzen oft Straßen, Wasser oder Bahntrassen",
+ bild:[["Kontraste zwischen direkt benachbarten Gebieten","↑","index"],["abgeschottete Räume (Zugangskontrollen, private Plätze)","↑","flaeche"],["Lohn am Arbeitsort im Vergleich zum Wohnort","↑","apl"],["Durchschnitt des Bezirks","→","eink"]],
+ gegen:[["segr","Segregation: Gruppen verteilen sich ungleich auf die Viertel. Fragmentierung: Wohlstandsinseln sind an die Weltwirtschaft angebunden und vom direkten Umfeld abgeschottet."],["gent","Bei der Gentrifizierung werden Bewohner ausgetauscht; bei der Fragmentierung bleiben beide Gruppen – getrennt."]],
+ steu:"Quoten für lokale Beschäftigung und Ausbildung, öffentlich zugängliche Plätze, Sozialwohnungen in Neubauprojekten, Abgaben auf Planungsgewinne",
+ falle:"Der Durchschnitt des Bezirks verdeckt die Gegensätze – kleinräumig lesen.",
+ bsp:"Ein Beispiel aus der Reihe folgt nach Stunde 2.",
+ upd:[["2026-11-21",{bsp:"Poplar (unter den 10 % am stärksten benachteiligten Gebieten Englands) liegt rund 450 m von Canary Wharf; Wapping grenzt an Shadwell."}]],
+ pf:"Was verdeckt der Durchschnitt – und wie durchlässig sind die Grenzen?"},
+{id:"unter",f:"bew",t:"Unternehmerische Stadt und Festivalisierung",al:["Unternehmerische Stadt","Festivalisierung","Steuerung"],ab:"2026-12-04",
+ def:"Städte handeln wie Unternehmen im Wettbewerb um Investoren, Touristen und Fachkräfte (Harvey 1989). Stadtentwicklung wird in Leuchtturmprojekten und Großereignissen mit festem Termin gebündelt – Festivalisierung (Häußermann und Siebel 1993).",
+ mod:"Wandel der Leitbilder: von der versorgenden zur unternehmerischen Stadt.",
+ ausl:["Standortwettbewerb","knappe öffentliche Haushalte","Strukturwandel","Wunsch nach neuem Image"],
+ mech:"Ein Leuchtturmprojekt oder ein fester Termin bündelt öffentliche Mittel, Sonderplanung und Infrastruktur. Image und Investitionen steigen, Bodenwerte auch. Erfolg verleitet zum nächsten Projekt. Kosten und Risiken trägt oft die öffentliche Hand, Gewinne fallen privat an; über den Nutzen entscheidet die Nachnutzung.",
+ g:{n:["Standort-|wettbewerb","Leuchtturmprojekt|oder Großereignis","Öffentliche Mittel,|Sonderplanung","Image und|Investitionen","Bodenwerte","Druck auf|bezahlbares Wohnen"],e:[[0,1,"+"],[1,2,"+"],[2,3,"+"],[3,4,"+"],[4,5,"+"],[3,1,"+"]],loop:"Verstärkend: Erfolg beim Image → nächstes Projekt."},
+ phasen:"",
+ akt:"Stadtspitze, Entwicklungsgesellschaften, Investoren, Veranstalter, Bewohner, Steuerzahler",
+ raum:"punktuelle Großprojekte als Inseln, dazu neue Verkehrswege dorthin",
+ bild:[["Großprojekte und Großereignisse mit festem Termin","↑","foerd"],["Öffentliche Kosten je zusätzlichem Arbeitsplatz","↑","foerd"],["Bodenwerte im Umfeld","↑","preis"]],
+ gegen:[["revit","Revitalisierung kann auch schrittweise und ohne Leuchtturm geschehen."],["tert","Tertiärisierung ist ein wirtschaftlicher Wandel; die unternehmerische Stadt ist eine politische Strategie."]],
+ steu:"Kriterien aus dem Leuchtturm-Check: Versprechen und Umsetzung, Kontrolle öffentlicher Mittel, Nachnutzung, bezahlbares Wohnen, Wirkung auf die Nachbarviertel, Verkehr",
+ falle:"Angaben der Projektträger (Arbeitsplätze, Grünflächen) sind Eigenwerbung.",
+ bsp:"Canary Wharf als Leuchtturm: ein Großinvestor zieht weitere nach.",
+ pf:"Wer trägt Kosten und Risiken, wer die Gewinne – und was bleibt danach?"}
+];
+const PHASEN=[["Urbanisierung","↑","↑ schwächer oder ↓","↑"],["Suburbanisierung","↓ oder schwach ↑","↑","↑"],["Desurbanisierung","↓","↓ oder schwach ↑","↓"],["Reurbanisierung","↑ oder schwach ↓","↓","↓"]];
+
+/* ---------- Wirkungsgefüge zeichnen ---------- */
+function wg(g){
+ const n=g.n.length,W=700,H=n===5?600:690,cx=350,cy=350,rx=230,ry=250,bw=236,bh=74;
+ const FIX={5:[[350,60],[575,250],[515,520],[185,520],[125,250]],6:[[350,50],[578,205],[578,470],[350,630],[122,470],[122,205]]};
+ const P=FIX[n]||g.n.map((t,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+rx*Math.cos(a),cy+ry*Math.sin(a)];});
+ const edge=(p,q)=>{const dx=q[0]-p[0],dy=q[1]-p[1];const s=Math.min((bw/2+8)/Math.abs(dx||1e-9),(bh/2+8)/Math.abs(dy||1e-9));return [p[0]+dx*s,p[1]+dy*s];};
+ let s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Wirkungsgefüge"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs><style>.n{font:600 21px sans-serif;fill:currentColor}.sg{font:700 24px sans-serif;fill:#fff}</style>';
+ g.e.forEach(e=>{const a=P[e[0]],b=P[e[1]];const rev=g.e.some(f=>f[0]===e[1]&&f[1]===e[0]);let off=rev?16:0;const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy);const ox=-dy/L*off,oy=dx/L*off;
+  const A=edge([a[0]+ox,a[1]+oy],[b[0]+ox,b[1]+oy]),B=edge([b[0]+ox,b[1]+oy],[a[0]+ox,a[1]+oy]);
+  s+='<line x1="'+A[0]+'" y1="'+A[1]+'" x2="'+B[0]+'" y2="'+B[1]+'" stroke="currentColor" stroke-opacity=".55" stroke-width="2.2" marker-end="url(#ah)"/>';
+  const fr=rev?0.3:0.5,mx=A[0]+(B[0]-A[0])*fr,my=A[1]+(B[1]-A[1])*fr;const c=e[2]==="+"?COL.b:COL.r;
+  s+='<circle cx="'+mx+'" cy="'+my+'" r="16" fill="'+c+'"/><text class="sg" x="'+mx+'" y="'+(my+8.5)+'" text-anchor="middle">'+e[2]+'</text>';});
+ g.n.forEach((t,i)=>{const p=P[i];const L=t.split("|");s+='<rect x="'+(p[0]-bw/2)+'" y="'+(p[1]-bh/2)+'" width="'+bw+'" height="'+bh+'" rx="12" fill="var(--soft)" stroke="currentColor" stroke-opacity=".35"/>';
+  L.forEach((l,j)=>{s+='<text class="n" x="'+p[0]+'" y="'+(p[1]+7.5-(L.length-1)*12+j*24)+'" text-anchor="middle">'+l+'</text>';});});
+ return s+'</svg>';
+}
+const popen=p=>!p.ab||S.unlock||today>=p.ab;
+const ARR=d=>'<span class="arrow '+(d==="↑"?"up":d==="↓"?"down":"")+'">'+d+'</span>';
+function procCard(p){const o=popen(p);
+ return '<div class="card akte'+(o?'':' lock')+'" '+(o?'onclick="showProc(\''+p.id+'\')"':'')+'><div style="flex:1"><div class="lexhead"><h3>'+p.t+'</h3>'+(o?'':'<span class="small">ab '+fmtD(p.ab)+'</span>')+'</div>'+
+ (o?'<div class="muted">'+p.def.split(/(?<=\.) /)[0]+'</div><div class="small" style="margin-top:6px">'+p.bild.slice(0,3).map(b=>b[0]+' '+ARR(b[1])).join(' · ')+'</div>':'<div class="small">Wird mit der Reihe freigeschaltet.</div>')+'</div></div>';}
+function procHTML(p0){const p=Object.assign({},p0);(p0.upd||[]).forEach(u=>{if(S.unlock||today>=u[0])Object.assign(p,u[1]);});
+ const sec=(l,c)=>c?'<div class="lbl">'+l+'</div><div>'+c+'</div>':'';
+ let h='<div class="lexhead"><h2>'+p.t+'</h2><span class="tag '+FAM[p.f][1]+'">'+PFAM.find(x=>x[0]===p.f)[1]+'</span></div>';
+ h+=sec("Was gemeint ist",p.def)+sec("Modell und Theorie",'<span class="muted">'+p.mod+'</span>');
+ h+=sec("Auslöser",p.ausl.map(a=>'<span class="tag f-gray">'+a+'</span>').join(''));
+ h+=sec("Wie der Prozess abläuft",p.mech);
+ h+='<div class="lbl">Wirkungsgefüge <span class="small">(tippen zum Vergrößern)</span></div><div class="mat"><div onclick="zoomSvg(this)" style="cursor:zoom-in">'+wg(p.g)+'</div><div class="small"><span style="color:'+COL.b+'">●</span> + gleichgerichtet: mehr → mehr, weniger → weniger &nbsp; <span style="color:'+COL.r+'">●</span> − entgegengesetzt: mehr → weniger</div><div class="small" style="margin-top:4px"><b>'+p.g.loop+'</b></div></div>';
+ h+='<div class="lbl">Indikatorenbild – daran erkennst du ihn</div><div class="mat">'+p.bild.map(b=>'<div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px solid var(--bd)"><span>'+b[0]+'</span>'+ARR(b[1])+'</div>').join('')+'<div style="margin-top:6px">'+[...new Set(p.bild.map(b=>b[2]))].map(chip).join('')+'</div></div>';
+ if(p.phasen==="phasenmodell")h+='<div class="lbl">Phasenmodell der Stadtentwicklung (Einwohnerentwicklung)</div><div class="mat">'+TL(PHASEN.map(r=>r.map((c,i)=>i===0&&(c===p.t)?'<b>'+c+'</b>':c)),["Phase","Kernstadt","Umland","Region"])+'<div class="small" style="margin-top:6px">Idealtypisches Modell. In deutschen Großstädten wuchsen nach 2010 oft Kernstadt und Umland zugleich – dafür passt das Modell nur bedingt.</div></div>';
+ else h+=sec("Verlauf",p.phasen);
+ h+=sec("Akteure",p.akt)+sec("Raummuster",p.raum);
+ h+='<div class="lbl">Nicht verwechseln mit</div>'+p.gegen.filter(x=>popen(PROC.find(y=>y.id===x[0]))).map(x=>{const q=PROC.find(y=>y.id===x[0]);return '<div style="margin:4px 0">'+(popen(q)?'<span class="chip" onclick="showProc(\''+q.id+'\')">'+q.t+'</span>':'<b>'+q.t+'</b>')+' '+x[1]+'</div>';}).join('');
+ const steu=p.steu;
+ h+=sec("Steuerung",steu)+'<div class="lbl">Falle</div><div class="falle">'+p.falle+'</div>'+sec("Beispiel aus der Reihe",'<span class="muted">'+p.bsp+'</span>')+sec("Prüffrage",'<b>'+p.pf+'</b>');
+ return h;}
+function zoomSvg(el){const d=document.createElement("div");d.className="sheetbg";d.id="sheet2";d.style.zIndex=10;d.onclick=e=>{if(e.target===d)d.remove();};
+ d.innerHTML='<div class="sheet"><div class="small">Wischen zum Verschieben</div><div class="zbox" style="overflow:auto"><div style="width:190%">'+el.querySelector('svg').outerHTML+'</div></div><div class="row"><button onclick="document.getElementById(\'sheet2\').remove()">Schließen</button></div></div>';document.body.appendChild(d);}
+function showProc(id){const p=PROC.find(x=>x.id===id);closeSheet();const d=document.createElement("div");d.className="sheetbg";d.id="sheet";d.onclick=e=>{if(e.target===d)closeSheet();};
+ d.innerHTML='<div class="sheet" role="dialog" aria-label="'+p.t+'">'+procHTML(p)+'<div class="row"><button onclick="closeSheet()">Schließen</button></div></div>';document.body.appendChild(d);nb(d);}
+const procByName=n=>PROC.find(p=>p.al.includes(n)&&popen(p));
+
+/* ---------- Prozess-Training ---------- */
+const PT={id:"pt",nr:"P",t:"Prozess-Training",bez:"Prozesse erkennen und unterscheiden",intro:"Du bekommst Indikatorenbilder und ausgedachte Modellfälle. Erkenne den Prozess – und achte auf den Indikator, der ihn von einem ähnlichen Prozess unterscheidet.",merk:"Ein Prozess zeigt sich nie an einem Indikator, sondern an einem Muster. Suche den Indikator, der zwei ähnliche Prozesse trennt – etwa die Einwohnerzahl bei Gentrifizierung und Reurbanisierung."};
+const PTRUN=8;
+function ptAuto(p){
+ const open=PROC.filter(popen);const conf=p.gegen.map(x=>x[0]).filter(id=>open.some(q=>q.id===id));
+ let ids=conf.slice(0,3);open.filter(q=>q.id!==p.id&&!ids.includes(q.id)).sort(()=>Math.random()-.5).forEach(q=>{if(ids.length<3)ids.push(q.id);});
+ const o=[[p.t,1,"Richtig. "+p.def]].concat(ids.map(id=>{const q=PROC.find(x=>x.id===id);const g=p.gegen.find(x=>x[0]===id);return [q.t,0,g?g[1]:"Typisch für "+q.t+" wäre: "+q.bild.slice(0,2).map(b=>b[0]+" "+b[1]).join(", ")+"."];}));
+ return {typ:"mc",mat:'<div class="small"><b>Indikatorenbild</b></div>'+p.bild.map(b=>'<div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px solid var(--bd)"><span>'+b[0]+'</span>'+ARR(b[1])+'</div>').join(''),q:"Welcher Prozess passt am genauesten zu diesem Indikatorenbild?",o:o,k:[...new Set(p.bild.map(b=>b[2]))]};
+}
+const MF='<div class="small"><b>Modellfall (ausgedacht)</b></div>';
+const CASES=[
+ {typ:"mc",mat:MF+T([["Einwohner","8 200","8 150"],["mittlere Angebotsmiete je m²","9,80 €","15,90 €"],["Haushalte mit Kindern","31 %","19 %"],["Einpersonenhaushalte","38 %","52 %"],["Bewohner mit Hochschulabschluss","22 %","41 %"]],["Altbauviertel A","2015","2025"]),
+  q:"Welcher Prozess läuft in Viertel A ab?",
+  o:[["Gentrifizierung",1,"Preise, Bildung und kleine Haushalte steigen, Familien nehmen ab – bei fast gleicher Einwohnerzahl. Das Muster spricht für einen Austausch der Bewohner; belegen ließe er sich erst mit Daten zu Zu- und Fortzügen."],["Reurbanisierung",0,"Dann müsste die Einwohnerzahl steigen. Sie bleibt hier fast gleich."],["Suburbanisierung",0,"Die beschreibt den Wegzug ins Umland – hier verändert sich ein innerstädtisches Viertel."],["Segregation",0,"Segregation beschreibt die Verteilung über die Stadt; hier ändert sich die Bewohnerschaft eines Viertels."]],k:["preis","haush","eink"]},
+ {typ:"mc",mat:MF+T([["Einwohner der Kernstadt","−3 %"],["Einwohner der Umlandgemeinden","+11 %"],["Einwohner der Stadtregion insgesamt","+3 %"],["Einpendler in die Kernstadt","+18 %"],["Siedlungsfläche im Umland","+9 %"]],["Stadtregion B, 2005–2025","Veränderung"]),
+  q:"Welcher Prozess prägt Stadtregion B?",
+  o:[["Suburbanisierung",1,"Die Region wächst, das Umland deutlich, die Kernstadt verliert, und das Pendeln nimmt zu."],["Schrumpfung",0,"Die Region insgesamt wächst – nur die Kernstadt verliert."],["Desurbanisierung",0,"Dann müsste die Region insgesamt schrumpfen. Hier wächst sie um 3 %."],["Digitalisierung und Homeoffice",0,"Dann müsste das Pendeln eher abnehmen. Hier steigen die Einpendler."]],k:["einw","apl","flaeche"]},
+ {typ:"mc",mat:MF+T([["Einwohner","+6 %"],["Wanderungssaldo 18–29 Jahre","deutlich positiv"],["Wanderungssaldo der Familien mit dem Umland","negativ"],["Wohnungsleerstand","3 % → 1 %"],["Einpersonenhaushalte","steigend"]],["Großstadt C, 2015–2025",""]),
+  q:"Welche Deutung passt am besten?",
+  o:[["Reurbanisierung, getragen von jungen Erwachsenen – Familien ziehen gleichzeitig ins Umland.",1,"Zwei Prozesse überlagern sich: Die Kernstadt wächst, aber nicht bei allen Gruppen."],["Suburbanisierung, weil Familien ins Umland ziehen.",0,"Teilweise richtig, aber die Stadt wächst insgesamt, getragen vom Zuzug junger Erwachsener."],["Gentrifizierung der ganzen Stadt.",0,"Gentrifizierung beschreibt Viertel. Für die ganze Stadt zeigen die Daten Wachstum."],["Schrumpfung, weil Familien fehlen.",0,"Die Einwohnerzahl steigt, der Leerstand sinkt."]],k:["wand","leer","haush"]},
+ {typ:"mc",mat:MF+T([["Einwohner pro Jahr","−1,2 %"],["Geburten","90"],["Sterbefälle","330"],["Wanderungssaldo","+40"],["Anteil 65 Jahre und älter","34 %"],["Wohnungsleerstand","16 %"]],["Mittelstadt D, Jahresdurchschnitt 2020–2025",""]),
+  q:"Was treibt die Schrumpfung in D vor allem an?",
+  o:[["Der Sterbeüberschuss – vermutlich eine Spätfolge früherer Abwanderung junger Menschen.",1,"−240 natürlich gegen +40 durch Wanderung. Die alte Bevölkerung macht den Sterbeüberschuss dauerhaft."],["Die Abwanderung.",0,"Der Wanderungssaldo ist positiv (+40)."],["Der hohe Leerstand.",0,"Leerstand ist eine Folge, keine Ursache des Rückgangs."],["Suburbanisierung.",0,"Dafür gibt es hier keinen Hinweis: Es ziehen sogar mehr Menschen zu als fort."]],k:["nat","alt","leer"]},
+ {typ:"mc",mat:MF+T([["Umschlag am neuen Terminal (30 km flussabwärts)","+25 %"],["Hafenarbeitsplätze am alten Standort","−80 %"],["Brachflächen am alten Hafen","140 ha"],["Arbeitslosenquote im alten Hafenviertel","9 % → 17 %"]],["Hafenstadt E, 1995–2020","Veränderung"]),
+  q:"Welche Aussage trifft den Prozess am besten?",
+  o:[["Deindustrialisierung des alten Standorts – der Hafen ist nicht verschwunden, er ist abgewandert und braucht weniger Arbeitskräfte.",1,"Technischer Wandel und Standortverlagerung: Der Umschlag wächst, die Arbeit am alten Ort verschwindet."],["Der Hafen hat seine Bedeutung verloren.",0,"Der Umschlag ist um 25 % gestiegen – nur an einem anderen Ort."],["Revitalisierung des Hafenviertels.",0,"Noch ist die Fläche Brache; Revitalisierung wäre der nächste Schritt."],["Tertiärisierung des Hafenviertels.",0,"Es gibt keinen Hinweis auf neue Dienstleistungsjobs – die Arbeitslosigkeit steigt."]],k:["gut","sektor","alq"]},
+ {typ:"mc",mat:MF+T([["Brachfläche","60 ha","5 ha"],["Beschäftigte im Gebiet","2 000","19 000"],["Bodenpreise","100 %","400 %"],["Arbeitslosenquote der Bewohner im Nachbarviertel","14 %","13 %"]],["Gebiet F","2000","2025"]),
+  q:"Wie beurteilst du die Entwicklung in F?",
+  o:[["Revitalisierung, die auf Gebietsebene erfolgreich ist – für die Bewohner nebenan hat sie kaum etwas verändert.",1,"Gebiets- und Personenebene getrennt: Die Arbeitsplätze im Gebiet gingen kaum an die Nachbarn."],["Ein voller Erfolg für alle, denn es gibt fast zehnmal so viele Arbeitsplätze.",0,"Die Arbeitslosenquote der Nachbarn ist kaum gesunken."],["Gentrifizierung, denn die Bodenpreise steigen.",0,"Hier wurde eine Brache umgebaut; über Bewohnerwechsel sagt die Tabelle nichts."],["Gescheitert, denn die Arbeitslosigkeit im Nachbarviertel bleibt hoch.",0,"Für die Fläche ist der Umbau ein Erfolg – das Urteil hängt am Kriterium."]],k:["flaeche","apl","alq"]},
+ {typ:"mc",ab:"2026-12-01",mat:MF+T([["neue Wohnungen auf einer Bahnbrache","1 200"],["davon gefördert","8 %"],["Kaufpreis im Neubau","9 000 €/m²"],["Angebotsmieten im Altbauviertel nebenan","+35 % in fünf Jahren"],["Einwohner im Altbauviertel nebenan","fast gleich"]],["Quartier G",""]),
+  q:"Welcher Prozess droht im Altbauviertel neben G?",
+  o:[["Neubaugentrifizierung: Der teure Neubau erhöht die Preise im Umfeld – Verdrängung indirekt.",1,"Niemand musste für den Neubau ausziehen, aber der Preisdruck wirkt im Bestand nebenan."],["Keine Verdrängung, denn die Fläche war vorher leer.",0,"Direkt nicht – aber die Mieten nebenan steigen stark."],["Reurbanisierung.",0,"Die Einwohnerzahl nebenan bleibt fast gleich; es geht um die Preise."],["Suburbanisierung.",0,"Hier wird in der Stadt gebaut, nicht im Umland."]],k:["preis","wform"]},
+ {typ:"mc",mat:MF+T([["mittleres Einkommen im Bezirk","etwa wie in der Gesamtstadt"],["Gebiet H1","im reichsten Zehntel des Landes"],["Gebiet H2, direkt daneben","im ärmsten Zehntel des Landes"],["Bürocluster","mit Zugangskontrollen und privaten Plätzen"],["Lohn am Arbeitsort","1,4-mal so hoch wie am Wohnort"]],["Bezirk H",""]),
+  q:"Welcher Begriff beschreibt H am genauesten?",
+  o:[["Polarisierung und Fragmentierung",1,"Gegensätze auf engstem Raum, abgeschottete Inseln, Jobs vor allem für Pendler – der Durchschnitt verdeckt alles."],["Segregation",0,"Trifft zu, ist aber ungenauer: Hier kommen abgeschottete Inseln direkt neben armen Gebieten hinzu."],["Gentrifizierung",0,"Es gibt keinen Hinweis darauf, dass Bewohner ausgetauscht werden."],["Ein ausgeglichener Bezirk, weil das mittlere Einkommen dem Stadtschnitt entspricht.",0,"Der Durchschnitt verdeckt die Gegensätze."]],k:["index","apl","eink"]},
+ {typ:"mc",mat:MF+T([["Haushalte mit Sozialleistungen, Viertel I1","4 %"],["Haushalte mit Sozialleistungen, Viertel I2","38 %"],["Haushalte mit Sozialleistungen, Gesamtstadt","12 %"],["Segregationsindex Einkommen","41 (2010) → 47 (2020)"]],["Stadt I",""]),
+  q:"Was zeigen die Werte?",
+  o:[["Zunehmende Segregation: Arme und wohlhabende Haushalte wohnen immer stärker in getrennten Vierteln.",1,"Der Index steigt; die Viertel unterscheiden sich stark."],["Fragmentierung, weil sich Bürocluster abschotten.",0,"Von Abschottung oder Inseln ist nicht die Rede – nur von der Verteilung über die Viertel."],["Gentrifizierung von Viertel I1.",0,"Ein niedriger Anteil allein zeigt keinen Austausch von Bewohnern."],["Schrumpfung von Viertel I2.",0,"Über die Einwohnerzahl sagen die Werte nichts."]],k:["armut","index"]},
+ {typ:"mc",mat:MF+T([["Büroleerstand im Zentrum","6 %","15 %"],["Pendeltage pro Woche (Büroberufe)","5,0","3,2"],["Wanderungssaldo der Kleinstädte im Umkreis von 80 km","−","+"],["Logistikflächen am Stadtrand","100 %","130 %"]],["Großstadt J","2019","2025"]),
+  q:"Welcher Impuls verändert die Raumstruktur von J am wahrscheinlichsten?",
+  o:[["Digitalisierung: Homeoffice und Onlinehandel",1,"Weniger Pendeltage, mehr Büroleerstand, Zuzug in entfernte Kleinstädte und mehr Logistik – ein Muster, kein Einzelwert."],["Deindustrialisierung",0,"Leer stehen Büros und es entstehen Logistikflächen; Industrie spielt keine Rolle."],["Klassische Suburbanisierung",0,"Dann würde das Pendeln zunehmen. Hier sinken die Pendeltage."],["Tertiärisierung",0,"Die würde mehr Bürofläche verlangen, nicht weniger."]],k:["buero","apl","wand"]},
+ {typ:"multi",mat:MF+'Ein Viertel wird als „gentrifiziert“ bezeichnet. Du willst die Behauptung prüfen.',
+  q:"Welche Daten brauchst du dafür? Wähle alle passenden.",
+  o:[["Entwicklung der Mieten und Kaufpreise",1,"Zeigt die Aufwertung."],["Wer zieht weg und wer zieht zu (Einkommen, Haushaltstyp)",1,"Nur Daten über Personen zeigen einen Austausch."],["Entwicklung der Einwohnerzahl der Gesamtstadt",0,"Gentrifizierung zeigt sich im Viertel, nicht in der Gesamtstadt."],["Anteil der Haushalte mit Kindern und der Sozialmieter",1,"Typische Gruppen, die bei Gentrifizierung abnehmen."],["Güterumschlag im Hafen",0,"Hat mit dem Wohnviertel nichts zu tun."]],k:["preis","haush","wform"]}
+];
+function ptPool(){return PROC.filter(popen).map(ptAuto).concat(CASES.filter(c=>!c.ab||S.unlock||today>=c.ab));}
+
 /* ---------- Zustand ---------- */
 const CODE="docks26";
 let S={lvl:"N",tab:"akten",done:{},unlock:false};
@@ -566,7 +849,7 @@ const today=new Date().toISOString().slice(0,10);
 const open=a=>!a.soon&&(S.unlock||today>=a.ab);
 const fmtD=d=>d.slice(8,10)+"."+d.slice(5,7)+".";
 const LV={N:"Normalo",E:"Experte"};
-const AL=a=>a.id==="mix"?"Mixtraining":"Akte "+a.nr;
+const AL=a=>a.id==="mix"?"Mixtraining":a.id==="pt"?"Prozess-Training":"Akte "+a.nr;
 const app=document.getElementById("app");
 const esc=s=>s;
 
@@ -592,10 +875,12 @@ function render(){
   h+='<p class="muted">22 Indikatoren in sechs Familien. Tippe auf eine Karte, um sie ganz zu sehen.</p><div>'+Object.keys(FAM).map(k=>'<span class="tag '+FAM[k][1]+'">'+FAM[k][0]+'</span>').join('')+'</div>';
   LEX.forEach(c=>{h+='<div class="card lex" onclick="showLex(\''+c.id+'\')"><div class="lexhead"><h3>'+c.t+'</h3><span class="tag '+FAM[c.f][1]+'">'+FAM[c.f][0]+'</span></div><div class="muted">'+c.m+'</div></div>';});
  } else {
-  h+='<h2 style="margin-top:10px">Die Kette</h2><div class="card"><b>Impuls</b> → <b>Prozess</b> → <b>Indikatorenbild</b> → <b>Folgen für wen?</b><div class="muted" style="margin-top:6px">Ein Impuls löst einen Prozess aus. Jeder Prozess hinterlässt ein typisches Muster aus mehreren Indikatoren. Daran erkennst du ihn auch in einer Stadt, die du nicht kennst.</div></div>';
-  h+='<h2 style="margin-top:18px">Prozess-Signaturen</h2>';
-  SIG.forEach(s=>{h+='<div class="card"><h3>'+s.t+'</h3>'+s.bild.map(b=>'<div>'+b[0]+' <span class="arrow '+(b[1]==="↑"?"up":b[1]==="↓"?"down":"")+'">'+b[1]+'</span></div>').join('')+'<div class="lbl">Prüffrage</div><div>'+s.p+'</div><div class="small" style="margin-top:6px">Aus der Reihe: '+s.bsp+'</div></div>';});
-  h+='<div class="small">↑ steigt · ↓ sinkt · → bleibt etwa gleich · ↕ große Unterschiede</div><h2 style="margin-top:18px">Impulse</h2>';
+  h+='<h2 style="margin-top:10px">Die Kette</h2><div class="card"><b>Impuls</b> → <b>Prozess</b> → <b>Indikatorenbild</b> → <b>Folgen für wen?</b><div class="muted" style="margin-top:6px">Ein Impuls löst einen Prozess aus. Jeder Prozess folgt einem Mechanismus mit Rückkopplungen und hinterlässt ein typisches Muster aus mehreren Indikatoren. Daran erkennst du ihn auch in einer Stadt, die du nicht kennst – und unterscheidest ihn von ähnlichen Prozessen.</div></div>';
+  const dp=S.done['pt'+S.lvl];
+  h+='<div class="card akte" onclick="startAkte(\'pt\')"><div class="nr">P</div><div style="flex:1"><div class="small">'+PTRUN+' Aufgaben · Indikatorenbilder und Modellfälle</div><h3>Prozess-Training</h3>'+(dp?'<div class="bar"><i style="width:'+Math.round(dp.r/dp.n*100)+'%"></i></div><div class="small">zuletzt '+dp.r+' von '+dp.n+' richtig</div>':'<div class="small">Prozesse erkennen und auseinanderhalten</div>')+'</div></div>';
+  h+='<p class="muted">'+PROC.length+' Prozesse. Tippe auf einen Prozess: Mechanismus, Wirkungsgefüge, Indikatorenbild, Abgrenzung, Steuerung.</p>';
+  PFAM.forEach(f=>{const ps=PROC.filter(p=>p.f===f[0]);if(!ps.length)return;h+='<h2 style="margin-top:16px"><span class="tag '+FAM[f[0]][1]+'" style="font-size:14px">'+f[1]+'</span></h2>';ps.forEach(p=>{h+=procCard(p);});});
+  h+='<div class="small">↑ steigt · ↓ sinkt · → bleibt etwa gleich</div><h2 style="margin-top:18px">Impulse</h2>';
   IMP.forEach(m=>{h+='<div class="card"><h3>'+m.t+'</h3><div>'+m.w+'</div><div class="small" style="margin-top:4px">Beispiel: '+m.bsp+'</div><div class="lbl">Danach prüfen</div>'+m.i.map(id=>chip(id)).join('')+'</div>';});
  }
  app.innerHTML=h;
@@ -605,7 +890,7 @@ const chip=id=>{const c=LEX.find(x=>x.id===id);return c?'<span class="chip" oncl
 
 function lexHTML(c){return '<div class="lexhead"><h2>'+c.t+'</h2><span class="tag '+FAM[c.f][1]+'">'+FAM[c.f][0]+'</span></div>'+
  '<div class="lbl">Was er misst</div><div>'+c.m+'</div><div class="lbl">So liest du ihn</div><div>'+c.l+'</div><div class="lbl">Falle</div><div class="falle">'+c.fa+'</div>'+
- '<div class="lbl">Immer zusammen lesen mit</div><div>'+c.z.map(chip).join('')+'</div><div class="lbl">Signal für</div><div>'+c.s.map(x=>'<span class="tag f-gray">'+x+'</span>').join('')+'</div>'+
+ '<div class="lbl">Immer zusammen lesen mit</div><div>'+c.z.map(chip).join('')+'</div><div class="lbl">Signal für</div><div>'+c.s.map(x=>{const p=procByName(x);return p?'<span class="chip" onclick="showProc(\''+p.id+'\')">'+x+'</span>':'<span class="tag f-gray">'+x+'</span>';}).join('')+'</div>'+
  '<div class="lbl">Beispiel aus der Reihe</div><div class="muted">'+c.b+'</div>';}
 function showLex(id){const c=LEX.find(x=>x.id===id);closeSheet();const d=document.createElement("div");d.className="sheetbg";d.id="sheet";d.onclick=e=>{if(e.target===d)closeSheet();};
  d.innerHTML='<div class="sheet" role="dialog" aria-label="'+c.t+'">'+lexHTML(c)+'<div class="row"><button onclick="closeSheet()">Schließen</button></div></div>';document.body.appendChild(d);}
@@ -614,9 +899,9 @@ function closeSheet(){const s=document.getElementById("sheet");if(s)s.remove();}
 /* ---------- Akte spielen ---------- */
 let cur=null;
 function shuffle(a){const b=a.map((x,i)=>[x,i]);for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
-function startAkte(id){const mix=id==="mix";const a=mix?MIX:AKTEN.find(x=>x.id===id);let pool=[];if(mix)AKTEN.filter(x=>open(x)).forEach(x=>(x[S.lvl]||[]).forEach(it=>pool.push(it)));else pool=a[S.lvl];
- const items=shuffle(pool).map(p=>p[0]).slice(0,mix?MIXRUN:RUN);cur={id:id,a:a,items:items,i:-1,r:0};showIntro();window.scrollTo(0,0);}
-function showIntro(){const a=cur.a;app.innerHTML=head()+'<div class="card"><div class="small">'+AL(a)+' · '+a.bez+' · Stufe '+LV[S.lvl]+'</div><h2>'+a.t+'</h2><p>'+a.intro+'</p><p class="small">'+cur.items.length+' Aufgaben, zufällig gezogen'+(a.id==="mix"?'':' aus '+a[S.lvl].length)+' – beim nächsten Durchgang sind andere dabei.</p><div class="row"><button class="pri" onclick="next()">Akte öffnen</button><button onclick="go(\'akten\')">Zurück</button></div></div>';}
+function startAkte(id){const mix=id==="mix",pt=id==="pt";const a=mix?MIX:pt?PT:AKTEN.find(x=>x.id===id);let pool=[];if(mix)AKTEN.filter(x=>open(x)).forEach(x=>(x[S.lvl]||[]).forEach(it=>pool.push(it)));else if(pt)pool=ptPool();else pool=a[S.lvl];
+ const items=shuffle(pool).map(p=>p[0]).slice(0,mix?MIXRUN:pt?PTRUN:RUN);cur={id:id,a:a,items:items,i:-1,r:0};showIntro();window.scrollTo(0,0);}
+function showIntro(){const a=cur.a;app.innerHTML=head()+'<div class="card"><div class="small">'+AL(a)+' · '+a.bez+' · Stufe '+LV[S.lvl]+'</div><h2>'+a.t+'</h2><p>'+a.intro+'</p><p class="small">'+cur.items.length+' Aufgaben, zufällig gezogen'+(a[S.lvl]?' aus '+a[S.lvl].length:'')+' – beim nächsten Durchgang sind andere dabei.</p><div class="row"><button class="pri" onclick="next()">Akte öffnen</button><button onclick="go(\'akten\')">Zurück</button></div></div>';}
 function next(){cur.i++;if(cur.i>=cur.items.length){finish();return;}showItem();window.scrollTo(0,0);}
 function showItem(){
  const it=cur.items[cur.i];cur.sel=it.typ==="order"?[]:it.typ==="multi"?new Set():null;cur.checked=false;
@@ -671,8 +956,8 @@ function check(){
 function finish(){
  const a=cur.a,n=cur.items.length;S.done[a.id+S.lvl]={r:cur.r,n:n};save();const gut=cur.r>=Math.ceil(n*0.7);
  let h=head()+'<div class="card"><div class="small">'+AL(a)+' · '+LV[S.lvl]+'</div><h2>'+cur.r+' von '+n+' richtig</h2><div class="merk"><b>Was du mitnimmst:</b> '+a.merk+'</div>';
- h+=S.lvl==="N"?'<p class="muted">'+(gut?'Stark. Probier '+(a.id==="mix"?'das Mixtraining':'diese Akte')+' jetzt als Experte.':'Lies die Indikatorkarten zu den Aufgaben, die nicht geklappt haben, und versuch es nochmal.')+'</p><div class="row">'+(gut?'<button class="pri" onclick="setLvl(\'E\')">Als Experte spielen</button>':'<button class="pri" onclick="startAkte(\''+a.id+'\')">Nochmal</button>'):'<p class="muted">Bei jedem Durchgang werden andere Aufgaben gezogen, und die Antworten stehen in neuer Reihenfolge.</p><div class="row"><button class="pri" onclick="startAkte(\''+a.id+'\')">Nochmal</button>';
- h+='<button onclick="go(\'akten\')">Zur Übersicht</button></div></div>';
+ h+=S.lvl==="N"&&a.id!=="pt"?'<p class="muted">'+(gut?'Stark. Probier '+(a.id==="mix"?'das Mixtraining':'diese Akte')+' jetzt als Experte.':'Lies die Indikatorkarten zu den Aufgaben, die nicht geklappt haben, und versuch es nochmal.')+'</p><div class="row">'+(gut?'<button class="pri" onclick="setLvl(\'E\')">Als Experte spielen</button>':'<button class="pri" onclick="startAkte(\''+a.id+'\')">Nochmal</button>'):'<p class="muted">Bei jedem Durchgang werden andere Aufgaben gezogen, und die Antworten stehen in neuer Reihenfolge.</p><div class="row"><button class="pri" onclick="startAkte(\''+a.id+'\')">Nochmal</button>';
+ h+='<button onclick="go(\''+S.tab+'\')">Zur Übersicht</button></div></div>';
  app.innerHTML=h;cur=null;window.scrollTo(0,0);
 }
 
