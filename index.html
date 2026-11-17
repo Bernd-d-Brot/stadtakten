@@ -1058,7 +1058,7 @@ function errItems(){const E=S.err||{};const seen={};return allItems().filter(it=
 const FK={id:"fk",nr:"!",t:"Fehlerkiste",bez:"Wiederholen, bis es sitzt",intro:"Hier landen alle Aufgaben, die du falsch beantwortet hast. Eine Aufgabe verschwindet erst, wenn du sie richtig löst. Am besten wiederholst du die Kiste an mehreren Tagen.",merk:"Wiederholen mit Abstand und bis zur richtigen Antwort ist eine der wirksamsten Lernstrategien. Komm morgen wieder vorbei."};
 
 /* --- Bestenliste --- */
-const SCORE_URL="";
+const SCORE_URL="https://script.google.com/macros/s/AKfycbz7U684eXTWCbCnnRGCdLxOAdhp5pOoHWEmN-BbX9SAymA5BHwNOVcVAI_1d5gSgw_0/exec";
 const PAR=40,LBGOAL=1500;
 const MODN=k=>{const b=k.split("·")[0];let n=b;if(b==="mix")n="Mixtraining";else if(b==="pt")n="Prozess-Training";else if(b.startsWith("af:")){const f=AF.find(x=>x.id===b.slice(3));n=f?"Auswerten: "+f.t:b;}else{const a=AKTEN.find(x=>x.id===b);if(a)n="Akte "+a.nr+": "+a.t;}return n+(k.includes("·")?" ("+(LV[k.split("·")[1]]||"")+")":"");};
 const fmtT=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
