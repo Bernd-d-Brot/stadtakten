@@ -34,8 +34,8 @@ button.pri{background:var(--tx);color:var(--bg);border-color:var(--tx)}
 .seg{display:flex;background:var(--soft);border-radius:12px;padding:3px;gap:3px}
 .seg button{flex:1;border:0;background:transparent;border-radius:9px;padding:8px 6px;font-size:15px}
 .seg button.on{background:var(--card);box-shadow:0 0 0 1px var(--bd)}
-.tabs{display:flex;gap:6px;margin:14px 0 4px;overflow-x:auto}
-.tabs button{border-radius:20px;padding:7px 14px;font-size:14px;white-space:nowrap}
+.tabs{display:flex;gap:4px;margin:14px 0 4px;overflow-x:auto}
+.tabs button{border-radius:20px;padding:7px 8px;font-size:13px;white-space:nowrap;flex:1 1 auto}
 .tabs button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
 .akte{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
 .akte .nr{flex:0 0 42px;height:42px;border-radius:10px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-weight:600}
@@ -43,8 +43,8 @@ button.pri{background:var(--tx);color:var(--bg);border-color:var(--tx)}
 .bar{height:6px;background:var(--soft);border-radius:4px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--ok)}
 .mat{background:var(--soft);border-radius:12px;padding:12px;margin:10px 0;font-size:14px}
 .mat img{width:100%;height:auto;border-radius:8px;display:block;background:#fff}
-.mat table{width:100%;border-collapse:collapse;font-size:14px}.mat td,.mat th{padding:5px 4px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}.mat th{font-weight:600;font-size:13px;color:var(--tx2)}
-.mat td.r,.mat th.r{text-align:right;white-space:nowrap}
+.mat table{width:100%;border-collapse:collapse;font-size:14px}.tsm{overflow-x:auto}.tsm table{font-size:12.5px}.tsm td,.tsm th{padding:5px 3px}.mat td,.mat th{padding:5px 4px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}.mat th{font-weight:600;font-size:13px;color:var(--tx2)}
+.mat td.r,.mat th.r{text-align:right;white-space:normal}.mat td{hyphens:auto;-webkit-hyphens:auto}.mat{overflow-x:auto}
 .src{font-size:12px;color:var(--tx3);margin-top:6px}
 .opt{display:block;width:100%;text-align:left;margin:8px 0;padding:11px 12px;font-size:15px;line-height:1.45}
 .opt.sel{border:2px solid var(--acc);padding:10px 11px}
@@ -942,26 +942,27 @@ const escH=s=>String(s).replace(/[&<>"']/g,c=>"&#"+c.charCodeAt(0)+";");
 
 /* --- Schemakarte für den Modellfall „Nordhafen" (ausgedacht) --- */
 function mapNordhafen(){
- let s='<svg viewBox="0 0 640 470" width="100%" role="img" aria-label="Schemakarte Nordhafen"><style>.k{font:600 24px sans-serif;fill:currentColor}.l{font:21px sans-serif;fill:currentColor}.g{font:16px sans-serif;fill:currentColor;opacity:.6}</style>';
+ let s='<svg viewBox="0 0 640 470" width="100%" role="img" aria-label="Schemakarte Nordhafen"><style>.k{font:600 24px sans-serif;fill:currentColor}.l{font:21px sans-serif;fill:currentColor}.g{font:600 20px sans-serif;fill:currentColor;opacity:.75}</style>';
  s+='<rect x="0" y="0" width="640" height="340" fill="var(--soft)"/>';
  for(let i=1;i<4;i++){s+='<line x1="'+(i*160)+'" y1="0" x2="'+(i*160)+'" y2="340" stroke="currentColor" stroke-opacity=".15"/>';}
  for(let j=1;j<3;j++){s+='<line x1="0" y1="'+(j*113)+'" x2="640" y2="'+(j*113)+'" stroke="currentColor" stroke-opacity=".15"/>';}
- ["1","2","3","4"].forEach((c,i)=>{s+='<text class="g" x="'+(i*160+80)+'" y="16" text-anchor="middle">'+c+'</text>';});
- ["a","b","c"].forEach((r,j)=>{s+='<text class="g" x="6" y="'+(j*113+60)+'">'+r+'</text>';});
  s+='<path d="M0,40 C160,70 260,120 380,110 C500,100 560,60 640,70 L640,120 C560,110 500,150 380,160 C250,170 150,120 0,95 Z" fill="#9CC3E6"/>';
+ ["1","2","3","4"].forEach((c,i)=>{s+='<text class="g" x="'+(i*160+80)+'" y="22" text-anchor="middle">'+c+'</text>';});
+ ["a","b","c"].forEach((r,j)=>{s+='<text class="g" x="8" y="'+(j*113+30)+'">'+r+'</text>';});
  s+='<rect x="250" y="175" width="120" height="70" fill="#C9A66B" stroke="currentColor" stroke-opacity=".4"/>';
  s+='<polygon points="400,160 560,114 590,230 420,250" fill="#B5D99C" stroke="currentColor" stroke-opacity=".4"/>';
  s+='<polygon points="90,230 230,250 240,325 80,325" fill="#D7D2C8" stroke="currentColor" stroke-opacity=".4"/>';
  s+='<polygon points="150,130 240,150 245,240 140,225" fill="#E8A87C" stroke="currentColor" stroke-opacity=".4"/>';
  [[195,190,"A"],[495,195,"B"],[160,285,"C"]].forEach(p=>{s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="22" fill="var(--card)" stroke="currentColor"/><text class="k" x="'+p[0]+'" y="'+(p[1]+8)+'" text-anchor="middle">'+p[2]+'</text>';});
- s+='<text class="l" x="310" y="216" text-anchor="middle">Altstadt</text><text class="l" x="560" y="96" text-anchor="middle">Fluss</text>';
+ s+='<text class="l" x="310" y="216" text-anchor="middle" style="fill:#222">Altstadt</text><text class="l" x="560" y="96" text-anchor="middle" style="fill:#1a3550">Fluss</text>';
  s+='<g transform="translate(605,190)"><path d="M0,-24 L9,7 L0,0 L-9,7 Z" fill="currentColor"/><text class="l" x="0" y="30" text-anchor="middle">N</text></g>';
  s+='<line x1="420" y1="310" x2="580" y2="310" stroke="currentColor" stroke-width="4"/>';[420,500,580].forEach((x,i)=>{s+='<line x1="'+x+'" y1="302" x2="'+x+'" y2="318" stroke="currentColor" stroke-width="2"/><text class="l" x="'+x+'" y="296" text-anchor="middle">'+["0","1","2 km"][i]+'</text>';});
  const lg=[["#E8A87C","Gründerzeit-Altbau"],["#B5D99C","ehem. Hafengelände"],["#D7D2C8","Großsiedlung (1970er)"],["#C9A66B","Altstadt"],["#9CC3E6","Wasser"]];
  lg.forEach((x,i)=>{const cx=8+(i%2)*320,cy=372+Math.floor(i/2)*32;s+='<rect x="'+cx+'" y="'+(cy-17)+'" width="24" height="20" fill="'+x[0]+'" stroke="currentColor" stroke-opacity=".4"/><text class="l" x="'+(cx+32)+'" y="'+cy+'">'+x[1]+'</text>';});
  return s+'</svg><div class="small">Schemakarte einer ausgedachten Stadt; Planquadrate statt Gradnetz.</div>';
 }
-const NORDT='<div style="font-size:13px">'+TL([["Einwohner","9 800 → 9 700","150 → 2 300","12 400 → 9 900"],["Angebotsmiete je m²","7,10 € → 12,90 €","– → 15,50 €","5,60 € → 5,90 €"],["Haushalte mit Kindern","28 % → 17 %","–","30 % → 18 %"],["Wohnungsleerstand","4 % → 1 %","–","6 % → 15 %"],["Anteil 65 Jahre und älter","18 % → 15 %","–","21 % → 34 %"],["Beschäftigte im Viertel","1 200 → 1 500","400 → 6 800","900 → 700"],["Brachfläche","–","48 ha → 6 ha","–"]],["2010 → 2025","A","B","C"])+'</div>';
+const NV=(a,b)=>'<span style="white-space:nowrap">'+a.replace(/ /g,"\u00a0")+'</span>'+(b?'<br><span style="white-space:nowrap">→\u00a0'+b.replace(/ /g,"\u00a0")+'</span>':'');
+const NORDT='<div class="tsm">'+TL([["Einwohner",NV("9 800","9 700"),NV("150","2 300"),NV("12 400","9 900")],["Miete je m²",NV("7,10 €","12,90 €"),NV("–","15,50 €"),NV("5,60 €","5,90 €")],["Haushalte mit Kindern",NV("28 %","17 %"),"–",NV("30 %","18 %")],["Leerstand",NV("4 %","1 %"),"–",NV("6 %","15 %")],["65 Jahre und älter",NV("18 %","15 %"),"–",NV("21 %","34 %")],["Beschäftigte",NV("1 200","1 500"),NV("400","6 800"),NV("900","700")],["Brache","–",NV("48 ha","6 ha"),"–"]],["2010 → 2025","A","B","C"])+'</div>';
 const MFH='<div class="small"><b>Modellfall (ausgedacht)</b></div>';
 
 /* --- Auswertungsfälle: gemeinsames Material, gestufte Fragen --- */
@@ -1036,7 +1037,7 @@ const AF=[
 {id:"f3",t:"Docklands: Wann geschah was – und für wen?",bez:"Stunde 2",akte:"a3",img:"hdr_a3",
  intro:"Ein Gebiet im Zeitraffer: Du ordnest die Impulse zeitlich, beschreibst die Veränderung und beurteilst, wem sie genützt hat.",
  merk:"Erst die zeitliche Abfolge macht Ursache und Wirkung sichtbar. Gebietserfolg und Erfolg für die Menschen vor Ort sind zwei verschiedene Fragen.",
- mat:IM("diag_e3","Hansard 1991 und 1998; Kleinman 1999; eigene Darstellung")+T([["Arbeitslosenquote im LDDC-Gebiet","17,8 % (1981)","7,2 % (1997)"],["Wochenlohn Tower Hamlets 2023","1 054 £ (Arbeitsort)","852 £ (Wohnort)"]],["","",""])+"Ein Teilgebiet von Poplar, rund 450 m von One Canada Square, gehört zu den 10 % am stärksten benachteiligten Gebieten Englands (2025)."+SRC("Arbeitslosigkeit: LDDC-Bilanz (Hansard 1998); ONS ASHE 2023; English Indices of Deprivation 2025"),
+ mat:IM("diag_e3","Hansard 1991 und 1998; Kleinman 1999; eigene Darstellung")+T([["Arbeitslosenquote im LDDC-Gebiet","1981: 17,8 %<br>1997: 7,2 %"],["Mittlerer Wochenlohn Tower Hamlets 2023","wer dort arbeitet: 1 054 £<br>wer dort wohnt: 852 £"]],["",""])+"Ein Teilgebiet von Poplar, rund 450 m von One Canada Square, gehört zu den 10 % am stärksten benachteiligten Gebieten Englands (2025)."+SRC("Arbeitslosigkeit: LDDC-Bilanz (Hansard 1998); ONS ASHE 2023; English Indices of Deprivation 2025"),
  steps:[
  {typ:"order",s:"Zeitlich ordnen (Vorwissen Stunde 2)",q:"Bringe die Impulse in die zeitliche Reihenfolge – vom frühesten zum jüngsten.",
   o:["Containerterminal in Tilbury nimmt den Betrieb auf.","Unternehmenszone auf der Isle of Dogs mit Steuervorteilen.","Die Docklands Light Railway fährt.","Die Jubilee Line erreicht Canary Wharf.","Die Elizabeth Line fährt."],
@@ -1265,7 +1266,7 @@ function finish(){
  const sec=Math.max(1,Math.round((performance.now()-cur.t0)/1000)),pts=scoreOf(cur.r,n,sec);let lb='';
  if(a.id!=="fk"){const k=lbKey(a);S.best=S.best||{};const b=S.best[k];const neu=!b||pts>b.p||(pts===b.p&&sec<b.t);if(neu)S.best[k]={p:pts,r:cur.r,n:n,t:sec};S.lastRun={k:k,r:cur.r,n:n,t:sec,p:pts,sent:false};
   lb='<div class="card" style="background:var(--soft)"><div class="lexhead"><b>'+pts+' Punkte</b><span class="small">'+cur.r+'/'+n+' richtig · '+fmtT(sec)+'</span></div>'+(neu?'<div class="small">Neue persönliche Bestmarke!</div>':'<div class="small">Deine Bestmarke: '+b.p+' Punkte</div>')+
-  (SCORE_URL&&!a.id.startsWith("af:")?'<div class="row small" style="margin-top:8px">Spitzname: <input type="text" id="nick" maxlength="16" value="'+escH(S.nick||'')+'" aria-label="Spitzname"><button onclick="nickRandom()">Zufallsname</button><button onclick="lbSubmit()">In die Bestenliste</button></div><div class="small" id="lbmsg">Bitte keinen echten Namen.</div>':'')+'<div class="row"><button onclick="showLB()">Bestenliste ansehen</button></div></div>';}
+  (SCORE_URL&&!a.id.startsWith("af:")?'<div class="row small" style="margin-top:8px">Spitzname: <input type="text" id="nick" maxlength="16" value="'+escH(S.nick||'')+'" aria-label="Spitzname"><button onclick="nickRandom()">Zufallsname</button><button class="pri" onclick="lbSubmit()">In die Bestenliste</button></div><div class="small" id="lbmsg">Bitte keinen echten Namen.</div>':'')+'<div class="row"><button onclick="showLB()">Bestenliste ansehen</button></div></div>';}
  save();
  const fkn=errItems().length;
  let h=head()+'<div class="card"><div class="small">'+AL(a)+' · '+LV[S.lvl]+'</div><h2>'+cur.r+' von '+n+' richtig</h2>'+(cur.sw||cur.ur?'<div class="small">'+(cur.sw?'<b>'+cur.sw+'×</b> sicher und falsch – diese Begründungen lohnen sich besonders. ':'')+(cur.ur?'<b>'+cur.ur+'×</b> richtig, aber unsicher – liegen in der Fehlerkiste.':'')+'</div>':'')+'<div class="merk"><b>Was du mitnimmst:</b> '+a.merk+'</div>';
